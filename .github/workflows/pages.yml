@@ -35,13 +35,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Resize and compress CMS-uploaded images
-        # ImageMagick ships preinstalled on ubuntu-latest. Shrinks anything
-        # in img/uploads/ to a 1920px long edge and re-compresses it, so a
-        # shop owner can upload a huge phone photo without thinking about
-        # file size. Only the runner's working copy is touched — the repo
-        # itself is never modified.
+        # Shrinks anything in img/uploads/ to a 1920px long edge and
+        # re-compresses it, so a shop owner can upload a huge phone photo
+        # without thinking about file size. Only the runner's working copy
+        # is touched — the repo itself is never modified.
         run: |
           set -e
+          if ! command -v mogrify >/dev/null 2>&1; then
+            echo "mogrify not found on this runner image, installing imagemagick..."
+            sudo apt-get update -y
+            sudo apt-get install -y imagemagick
+          fi
           if [ -d "img/uploads" ]; then
             find img/uploads -type f \( \
                 -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \
