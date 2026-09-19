@@ -1,0 +1,37 @@
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoRepair",
+      "name": {{ site.data.business.name | jsonify }},
+      "image": "https://jstireshop.com/img/tire-shop.JPG",
+      "url": "https://jstireshop.com",
+      "telephone": {{ site.data.business.phone_display | jsonify }},
+      "email": {{ site.data.business.email | jsonify }},
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ site.data.business.street | jsonify }},
+        "addressLocality": {{ site.data.business.city | jsonify }},
+        "addressRegion": {{ site.data.business.region | jsonify }},
+        "postalCode": {{ site.data.business.postal | jsonify }},
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.7042379,
+        "longitude": -73.6281205
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "07:00",
+          "closes": "21:00"
+        }
+      ],
+      "hasMap": "https://www.google.com/maps/place/JS+TIRE+SHOP+FIXED+FLAT/data=!4m2!3m1!1s0x0:0x5dd6259e7490655b",
+      "sameAs": [
+        {{ site.data.business.facebook_url | jsonify }}
+      ],
+      "priceRange": "$$"
+    }
+    </script>

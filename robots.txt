@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Sitemap: https://c-beltran.github.io/jstireshop-cms-test/sitemap.xml

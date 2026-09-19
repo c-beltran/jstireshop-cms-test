@@ -1,0 +1,87 @@
+# Decap CMS admin config for the jstireshop-cms-test POC.
+#
+# Backend: DecapBridge (https://decapbridge.com/docs/getting-started) —
+# DecapBridge is a hosted "git-gateway" auth provider for Decap CMS, so
+# a shop owner logs in with an email/password (or Google/Microsoft) instead
+# of needing a GitHub account. Per DecapBridge's documented config.yml
+# pattern, the backend name stays `git-gateway`; only `identity_url`'s
+# site id is specific to a DecapBridge account/site.
+#
+# >>> ACTION NEEDED AFTER SIGNING UP AT https://decapbridge.com <<<
+# Replace DECAPBRIDGE_SITE_ID_PLACEHOLDER below with the site id DecapBridge
+# shows after you create a "Site" there and link it to this repo
+# (c-beltran/jstireshop-cms-test). See POC-NOTES.md for the full checklist.
+backend:
+  name: git-gateway
+  repo: c-beltran/jstireshop-cms-test
+  branch: main
+  identity_url: https://auth.decapbridge.com/sites/DECAPBRIDGE_SITE_ID_PLACEHOLDER
+  gateway_url: https://gateway.decapbridge.com
+
+# UI language for the CMS admin screen (buttons, labels, dialogs). The full
+# decap-cms.js bundle used in admin/index.html registers all locales, so no
+# extra script is needed beyond this key.
+locale: "es"
+
+site_url: https://c-beltran.github.io/jstireshop-cms-test/
+display_url: https://c-beltran.github.io/jstireshop-cms-test/
+
+media_folder: "img/uploads"
+public_folder: "/jstireshop-cms-test/img/uploads"
+
+collections:
+  - name: "home"
+    label: "Página de Inicio"
+    description: "Fotos y video que aparecen en la página principal del sitio."
+    files:
+      - name: "home"
+        label: "Fotos y video de la Página de Inicio"
+        file: "_data/home.yml"
+        fields:
+          - label: "Sección de video/imagen (\"Tire Tips\")"
+            name: "promo"
+            widget: "object"
+            hint: "Esta sección aparece justo debajo de las horas y precios en la página de inicio."
+            fields:
+              - label: "Título de la sección"
+                name: "heading"
+                widget: "string"
+                default: "Tire Tips"
+                hint: "El texto grande que aparece arriba de la imagen o el video."
+              - label: "¿Qué quieres mostrar?"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Una imagen fija", value: "image" }
+                  - { label: "Un video de YouTube", value: "youtube" }
+                hint: "Elige \"Una imagen fija\" para mostrar una foto, o \"Un video de YouTube\" para que los visitantes puedan reproducir un video con un clic."
+              - label: "Enlace del video de YouTube"
+                name: "youtube_url"
+                widget: "string"
+                required: false
+                default: ""
+                hint: "Solo se usa si elegiste \"Un video de YouTube\" arriba. Copia y pega el enlace completo, por ejemplo: https://www.youtube.com/watch?v=XXXXXXXXXXX"
+              - label: "Imagen"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "Solo se usa si elegiste \"Una imagen fija\" arriba. Sube una foto nueva o elige una existente. Se redimensiona automáticamente al publicar."
+              - label: "Descripción de la imagen/video (accesibilidad)"
+                name: "alt"
+                widget: "string"
+                hint: "Describe en pocas palabras qué se ve en la imagen o el video. Ayuda a personas con discapacidad visual y mejora el posicionamiento en Google."
+          - label: "Galería de 4 fotos"
+            name: "gallery"
+            widget: "list"
+            minimize_collapsed: true
+            summary: "{{fields.alt}}"
+            hint: "Las 4 fotos que aparecen en fila más abajo en la página de inicio. Debe haber exactamente 4."
+            fields:
+              - label: "Foto"
+                name: "image"
+                widget: "image"
+                hint: "Se redimensiona automáticamente al publicar (máximo 1920px de ancho/alto)."
+              - label: "Descripción de la foto (accesibilidad)"
+                name: "alt"
+                widget: "string"
+                hint: "Describe en pocas palabras qué se ve en la foto."

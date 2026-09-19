@@ -1,0 +1,26 @@
+title: JS Tire Shop Fixed Flat (CMS POC)
+url: "https://c-beltran.github.io"
+baseurl: "/jstireshop-cms-test"
+
+plugins:
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+      jsonld: jsonld-business.html
+
+# Jekyll 3 replaces (does not merge) its default exclude list, so list everything.
+exclude:
+  - README.md
+  - POC-NOTES.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - .jekyll-cache
+  - node_modules

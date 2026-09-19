@@ -1,0 +1,31 @@
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Community — JS Tire Shop Fixed Flat",
+      "url": "https://jstireshop.com/community.html",
+      "description": "JS Tire Shop Fixed Flat proudly supports Potaflow and other Nassau County local businesses.",
+      "publisher": {
+        "@type": "AutoRepair",
+        "name": {{ site.data.business.name | jsonify }},
+        "url": "https://jstireshop.com",
+        "telephone": {{ site.data.business.phone_display | jsonify }},
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": {{ site.data.business.street | jsonify }},
+          "addressLocality": {{ site.data.business.city | jsonify }},
+          "addressRegion": {{ site.data.business.region | jsonify }},
+          "postalCode": {{ site.data.business.postal | jsonify }},
+          "addressCountry": "US"
+        }
+      },
+      "mentions": {
+        "@type": "SoftwareApplication",
+        "name": "Potaflow",
+        "url": "https://potaflow.com",
+        "description": "DOH-1013 backflow compliance filing software built by a licensed Nassau County backflow tester.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web"
+      }
+    }
+    </script>
