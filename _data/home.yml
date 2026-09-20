@@ -1,15 +1,15 @@
 promo:
   type: image
   youtube_url: ""
-  image: /jstireshop-cms-test/img/uploads/educational-video-poster.jpg
+  image: img/uploads/educational-video-poster.jpg
   alt: Tire tips video poster
   heading: Tire Tips
 gallery:
-  - image: /jstireshop-cms-test/img/uploads/img_3123.jpeg
+  - image: img/uploads/img_3123.jpeg
     alt: truck tires of all kinds at JS Tire Shop
-  - image: /jstireshop-cms-test/img/uploads/used-tires-selection.webp
+  - image: img/uploads/used-tires-selection.webp
     alt: used tires selection Hempstead NY
-  - image: /jstireshop-cms-test/img/uploads/jg-flat-fix-shop.webp
+  - image: img/uploads/jg-flat-fix-shop.webp
     alt: JS Tire Shop Fixed Flat storefront Hempstead NY
-  - image: /jstireshop-cms-test/img/uploads/jg-flat-fix-cards.webp
+  - image: img/uploads/jg-flat-fix-cards.webp
     alt: JS Tire Shop Fixed Flat service options and pricing

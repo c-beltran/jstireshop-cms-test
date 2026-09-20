@@ -145,8 +145,9 @@ nav: home
                 })();
                 </script>
             {% else %}
-                {% assign promo_img = promo.image %}
-                {% if promo_img == nil or promo_img == "" %}{% assign promo_img = site.baseurl | append: '/img/uploads/educational-video-poster.jpg' %}{% endif %}
+                {% assign promo_raw = promo.image | default: 'img/uploads/educational-video-poster.jpg' %}
+                {% assign promo_first = promo_raw | slice: 0 %}
+                {% if promo_raw contains '://' or promo_first == '/' %}{% assign promo_img = promo_raw %}{% else %}{% assign promo_img = site.baseurl | append: '/' | append: promo_raw %}{% endif %}
                 <img class="rounded shadow d-block mx-auto img-fluid"
                      src="{{ promo_img }}"
                      alt="{{ promo.alt | default: promo.heading | default: 'Tire tips' | escape }}"
@@ -409,7 +410,9 @@ nav: home
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{ delays[forloop.index0] | default: '0.1s' }}">
                     <div class="team-item">
                         <div class="position-relative overflow-hidden"{% unless forloop.first %} style="padding-top: 65px;"{% endunless %}>
-                            <img class="img-fluid" src="{{ photo.image }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
+                            {% assign photo_first = photo.image | slice: 0 %}
+                            {% if photo.image contains '://' or photo_first == '/' %}{% assign photo_src = photo.image %}{% else %}{% assign photo_src = site.baseurl | append: '/' | append: photo.image %}{% endif %}
+                            <img class="img-fluid" src="{{ photo_src }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>

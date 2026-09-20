@@ -43,7 +43,7 @@ site_url: https://c-beltran.github.io/jstireshop-cms-test/
 display_url: https://c-beltran.github.io/jstireshop-cms-test/
 
 media_folder: "img/uploads"
-public_folder: "/jstireshop-cms-test/img/uploads"
+public_folder: "img/uploads"
 
 collections:
   - name: "home"
