@@ -53,6 +53,10 @@ collections:
       - name: "home"
         label: "Fotos y video de la Página de Inicio"
         file: "_data/home.yml"
+        # The default preview pane just lists raw fields and broken images —
+        # more confusing than helpful for a non-technical owner.
+        editor:
+          preview: false
         fields:
           - label: "Sección de video/imagen (\"Tire Tips\")"
             name: "promo"
@@ -89,6 +93,7 @@ collections:
           - label: "Galería de 4 fotos"
             name: "gallery"
             widget: "list"
+            label_singular: "foto"
             minimize_collapsed: true
             summary: "{{fields.alt}}"
             hint: "Las 4 fotos que aparecen en fila más abajo en la página de inicio. Debe haber exactamente 4."

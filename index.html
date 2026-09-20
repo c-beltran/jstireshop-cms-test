@@ -145,8 +145,10 @@ nav: home
                 })();
                 </script>
             {% else %}
+                {% assign promo_img = promo.image %}
+                {% if promo_img == nil or promo_img == "" %}{% assign promo_img = site.baseurl | append: '/img/uploads/educational-video-poster.jpg' %}{% endif %}
                 <img class="rounded shadow d-block mx-auto img-fluid"
-                     src="{{ promo.image | default: 'img/educational-video-poster.jpg' }}"
+                     src="{{ promo_img }}"
                      alt="{{ promo.alt | default: promo.heading | default: 'Tire tips' | escape }}"
                      style="width: 100%; max-width: 480px; aspect-ratio: 480 / 736; object-fit: cover; background: #000;"
                      loading="lazy" decoding="async">

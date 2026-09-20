@@ -9,16 +9,16 @@ promo:
   # YouTube facade (no autoplay, loads youtube-nocookie.com only on click).
   type: image
   youtube_url: ""
-  image: "img/educational-video-poster.jpg"
+  image: "/jstireshop-cms-test/img/uploads/educational-video-poster.jpg"
   alt: "Tire tips video poster"
   heading: "Tire Tips"
 
 gallery:
-  - image: "img/truck-tires-of-all-kind.webp"
+  - image: "/jstireshop-cms-test/img/uploads/truck-tires-of-all-kind.webp"
     alt: "truck tires of all kinds at JS Tire Shop"
-  - image: "img/used-tires-selection.webp"
+  - image: "/jstireshop-cms-test/img/uploads/used-tires-selection.webp"
     alt: "used tires selection Hempstead NY"
-  - image: "img/jg-flat-fix-shop.webp"
+  - image: "/jstireshop-cms-test/img/uploads/jg-flat-fix-shop.webp"
     alt: "JS Tire Shop Fixed Flat storefront Hempstead NY"
-  - image: "img/jg-flat-fix-cards.webp"
+  - image: "/jstireshop-cms-test/img/uploads/jg-flat-fix-cards.webp"
     alt: "JS Tire Shop Fixed Flat service options and pricing"
