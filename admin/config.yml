@@ -1,22 +1,38 @@
-# Decap CMS admin config for the jstireshop-cms-test POC.
+# Decap CMS admin config for the jstireshop-cms-test POC (throwaway).
 #
-# Backend: DecapBridge (https://decapbridge.com/docs/getting-started) —
-# DecapBridge is a hosted "git-gateway" auth provider for Decap CMS, so
-# a shop owner logs in with an email/password (or Google/Microsoft) instead
-# of needing a GitHub account. Per DecapBridge's documented config.yml
-# pattern, the backend name stays `git-gateway`; only `identity_url`'s
-# site id is specific to a DecapBridge account/site.
-#
-# >>> ACTION NEEDED AFTER SIGNING UP AT https://decapbridge.com <<<
-# Replace DECAPBRIDGE_SITE_ID_PLACEHOLDER below with the site id DecapBridge
-# shows after you create a "Site" there and link it to this repo
-# (c-beltran/jstireshop-cms-test). See POC-NOTES.md for the full checklist.
+# Backend: DecapBridge (https://decapbridge.com) — a hosted auth service for
+# Decap CMS, so the shop owner logs in with email/password (or Google /
+# Microsoft) instead of needing a GitHub account. The block below is the exact
+# snippet DecapBridge generated for this site on 2026-09-20; the site id is not
+# a secret (it ships in this public config). The GitHub token DecapBridge uses
+# lives only in the DecapBridge dashboard, never in this repo.
 backend:
   name: git-gateway
   repo: c-beltran/jstireshop-cms-test
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/DECAPBRIDGE_SITE_ID_PLACEHOLDER
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/71fcfdd2-3899-42e2-ab2b-8d94b82b4918/pkce
+  auth_token_endpoint: /sites/71fcfdd2-3899-42e2-ab2b-8d94b82b4918/token
   gateway_url: https://gateway.decapbridge.com
+
+  # Record who made each change in the commit message.
+  commit_messages:
+    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# PKCE identity claims (per DecapBridge's snippet).
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
 # UI language for the CMS admin screen (buttons, labels, dialogs). The full
 # decap-cms.js bundle used in admin/index.html registers all locales, so no
