@@ -1,24 +1,15 @@
-# Homepage media, editable via the /admin/ CMS.
-# This file drives two sections of index.html:
-#   1. `promo`   -> the "Tire Tips" section (a promo image OR a click-to-play
-#                   YouTube video — pick one with `type`).
-#   2. `gallery` -> the four-photo row further down the homepage.
-
 promo:
-  # "image" shows a plain promo image. "youtube" shows a click-to-play
-  # YouTube facade (no autoplay, loads youtube-nocookie.com only on click).
   type: image
   youtube_url: ""
-  image: "/jstireshop-cms-test/img/uploads/educational-video-poster.jpg"
-  alt: "Tire tips video poster"
-  heading: "Tire Tips"
-
+  image: /jstireshop-cms-test/img/uploads/educational-video-poster.jpg
+  alt: Tire tips video poster
+  heading: Tire Tips
 gallery:
-  - image: "/jstireshop-cms-test/img/uploads/truck-tires-of-all-kind.webp"
-    alt: "truck tires of all kinds at JS Tire Shop"
-  - image: "/jstireshop-cms-test/img/uploads/used-tires-selection.webp"
-    alt: "used tires selection Hempstead NY"
-  - image: "/jstireshop-cms-test/img/uploads/jg-flat-fix-shop.webp"
-    alt: "JS Tire Shop Fixed Flat storefront Hempstead NY"
-  - image: "/jstireshop-cms-test/img/uploads/jg-flat-fix-cards.webp"
-    alt: "JS Tire Shop Fixed Flat service options and pricing"
+  - image: /jstireshop-cms-test/img/uploads/img_3123.jpeg
+    alt: truck tires of all kinds at JS Tire Shop
+  - image: /jstireshop-cms-test/img/uploads/used-tires-selection.webp
+    alt: used tires selection Hempstead NY
+  - image: /jstireshop-cms-test/img/uploads/jg-flat-fix-shop.webp
+    alt: JS Tire Shop Fixed Flat storefront Hempstead NY
+  - image: /jstireshop-cms-test/img/uploads/jg-flat-fix-cards.webp
+    alt: JS Tire Shop Fixed Flat service options and pricing
