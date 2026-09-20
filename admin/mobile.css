@@ -1,0 +1,70 @@
+/* Phone-friendly overrides for the Decap CMS admin UI (POC).
+   Decap is desktop-first: its main container has a hard min-width (~800px),
+   so on a phone the right-hand side is simply cut off. These rules target
+   Decap's emotion-generated class names via [class*="..."] substring
+   selectors — fragile across major Decap upgrades, but contained to this file. */
+
+@media (max-width: 900px) {
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
+
+  /* The actual culprit: remove the fixed minimum widths. */
+  [class*="AppMainContainer"],
+  [class*="EditorContainer"],
+  [class*="EditorContent"],
+  [class*="PreviewPaneContainer"],
+  [class*="ControlPaneContainer"] {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* One column: editing fields only, no side-by-side layout. */
+  [class*="EditorContent"] {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Collections sidebar sits above the content instead of beside it. */
+  [class*="SidebarContainer"] {
+    position: static !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px !important;
+  }
+
+  /* Editor top bar: let it wrap instead of pushing content off-screen. */
+  [class*="EditorToggle"],
+  [class*="ToolbarContainer"],
+  [class*="ViewControls"] {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    gap: 6px !important;
+  }
+
+  /* Comfortable tap targets (Apple/Google guidance is ~44px). */
+  [class*="EditorContainer"] button,
+  [class*="ControlPaneContainer"] button,
+  button[class*="Button"] {
+    min-height: 44px !important;
+    font-size: 15px !important;
+  }
+
+  /* Inputs big enough that iOS does not zoom on focus (needs >= 16px). */
+  [class*="ControlPaneContainer"] input,
+  [class*="ControlPaneContainer"] textarea,
+  [class*="ControlPaneContainer"] select {
+    font-size: 16px !important;
+  }
+
+  /* Media library dialog: full screen on a phone. */
+  [class*="MediaLibraryModal"],
+  .ReactModal__Content {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    height: 92vh !important;
+    max-height: 92vh !important;
+    inset: 2vh 2vw !important;
+    transform: none !important;
+  }
+  [class*="MediaLibraryCardGrid"] { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; }
+}
