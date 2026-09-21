@@ -94,7 +94,8 @@ collections:
             name: "gallery"
             widget: "list"
             label_singular: "foto"
-            minimize_collapsed: true
+            minimize_collapsed: false
+            collapsed: false
             summary: "{{fields.alt}}"
             hint: "Las 4 fotos que aparecen en fila más abajo en la página de inicio. Debe haber exactamente 4."
             fields:
