@@ -2,20 +2,61 @@
    Decap is desktop-first: its main container has a hard min-width (~800px),
    so on a phone the right-hand side is simply cut off. These rules target
    Decap's emotion-generated class names via [class*="..."] substring
-   selectors — fragile across major Decap upgrades, but contained to this file. */
+   selectors — fragile across major Decap upgrades, but contained to this file.
+
+   IMPORTANT for maintainers: emotion DOES emit readable class fragments in
+   decap-cms@3.16.2/dist/decap-cms.js (e.g. "css-1gtfcgu-ToolbarContainer
+   e1d2l9mo22"), so [class*="ComponentName"] substring selectors do match in
+   production. Verified 2026-09-20 against the real DOM by pointing a local
+   copy of admin/ at Decap's built-in `test-repo` backend (no login needed)
+   and inspecting computed styles at 390/360px widths.
+   A prior version of this file made the same assumption but forgot to also
+   collapse ToolbarContainer's own min-width, so the toolbar (and the
+   Publish button inside it) stayed 800px wide and was clipped by
+   `overflow-x: hidden` below. Re-verify every selector against the live DOM
+   before touching this file again — do not assume by name alone. */
 
 @media (max-width: 900px) {
   html, body { overflow-x: hidden !important; max-width: 100% !important; }
 
-  /* The actual culprit: remove the fixed minimum widths. */
+  /* The actual culprit: remove the fixed minimum widths that force Decap's
+     desktop layout. ToolbarContainer is the one that was MISSING from this
+     list before — it alone has min-width: 800px, and because it is a child
+     of EditorContainer (overflow: hidden), everything past x=390 (or 360)
+     in the toolbar was rendered but invisible/unreachable, not scrollable. */
   [class*="AppMainContainer"],
   [class*="EditorContainer"],
   [class*="EditorContent"],
   [class*="PreviewPaneContainer"],
-  [class*="ControlPaneContainer"] {
+  [class*="ControlPaneContainer"],
+  [class*="ToolbarContainer"] {
     min-width: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
+  }
+
+  /* ToolbarContainer has 3 flex children, each with its own fixed content
+     width: ToolbarSectionBackLink (back arrow + collection name + status),
+     ToolbarSectionMain (save/publish/preview controls), ToolbarSectionMeta
+     (site link + account menu). Matching "ToolbarSection" (not present in
+     "ToolbarSubSection...") catches exactly these three without touching
+     the button sub-sections nested inside ToolbarSectionMain. Stacking each
+     on its own full-width row is more predictable on a narrow phone than
+     relying on space-between + wrap to land them sensibly. */
+  [class*="ToolbarContainer"] [class*="ToolbarSection"] {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Editor top bar: let its rows wrap instead of pushing content off-screen. */
+  [class*="EditorToggle"],
+  [class*="ToolbarContainer"],
+  [class*="ViewControls"] {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    gap: 6px !important;
   }
 
   /* One column: editing fields only, no side-by-side layout. */
@@ -30,15 +71,6 @@
     width: 100% !important;
     min-width: 0 !important;
     padding: 8px !important;
-  }
-
-  /* Editor top bar: let it wrap instead of pushing content off-screen. */
-  [class*="EditorToggle"],
-  [class*="ToolbarContainer"],
-  [class*="ViewControls"] {
-    flex-wrap: wrap !important;
-    height: auto !important;
-    gap: 6px !important;
   }
 
   /* Comfortable tap targets (Apple/Google guidance is ~44px). */
@@ -68,8 +100,11 @@
   }
   [class*="MediaLibraryCardGrid"] { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; }
 
-  /* Keep the save/publish bar reachable: on a phone the editor header scrolls
-     away, so pin it to the top of the screen. */
+  /* Keep the save/publish bar reachable: on a phone the editor header would
+     otherwise scroll away with the page, so pin it to the top of the
+     viewport. This only works now that ToolbarContainer's width is capped
+     above — position: sticky on an element that is still 800px wide just
+     scrolls sideways with it, it does not make it fit. */
   [class*="EditorToolbar"],
   [class*="ToolbarContainer"] {
     position: sticky !important;
@@ -80,11 +115,18 @@
     padding: 6px 8px !important;
   }
 
-  /* The publish control must never be pushed off-screen or shrunk away. */
-  [class*="EditorToolbar"] [class*="PublishButton"],
-  [class*="ToolbarContainer"] [class*="PublishButton"],
-  [class*="PublishButtonWrapper"] {
-    flex: 1 1 auto !important;
+  /* The publish control itself: covers BOTH states Decap renders here —
+     "Publicar" (a StyledDropdownButton, class contains literal
+     "PublishButton") when there are changes to publish, and "Publicado"
+     (class contains "PublishedButton") when the entry has no pending
+     changes. Matching "ublish" (lowercase) is deliberately loose because
+     "PublishButton" and "PublishedButton" do NOT share "PublishButton" as a
+     contiguous substring (the "ed" breaks it) — verified against the real
+     bundle, this is not a guess. Scoped to the toolbar so it can't leak
+     onto an unrelated "Unpublish" menu item elsewhere in the app. */
+  [class*="ToolbarContainer"] [class*="ublish"] {
+    flex: 0 0 auto !important;
     min-width: 140px !important;
+    max-width: 100% !important;
   }
 }
