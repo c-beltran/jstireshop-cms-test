@@ -35,19 +35,42 @@
     width: 100% !important;
   }
 
-  /* ToolbarContainer has 3 flex children, each with its own fixed content
-     width: ToolbarSectionBackLink (back arrow + collection name + status),
-     ToolbarSectionMain (save/publish/preview controls), ToolbarSectionMeta
-     (site link + account menu). Matching "ToolbarSection" (not present in
-     "ToolbarSubSection...") catches exactly these three without touching
-     the button sub-sections nested inside ToolbarSectionMain. Stacking each
-     on its own full-width row is more predictable on a narrow phone than
-     relying on space-between + wrap to land them sensibly. */
-  [class*="ToolbarContainer"] [class*="ToolbarSection"] {
+  /* ToolbarContainer has 3 flex children: ToolbarSectionBackLink (back arrow
+     + collection name + status), ToolbarSectionMain (publish/preview
+     controls), ToolbarSectionMeta (site link + account menu). Two rows, not
+     three: force BackLink onto its own full-width row, which — combined with
+     ToolbarContainer's own flex-wrap: wrap + justify-content: space-between
+     (both native to Decap, untouched here) — pushes Main and Meta onto a
+     shared second row with Main flush left and Meta flush right. This is
+     cheaper and more robust than giving Main/Meta explicit widths: it works
+     regardless of how wide either one's content is. */
+  [class*="ToolbarContainer"] [class*="ToolbarSectionBackLink"] {
     flex: 1 1 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+  }
+
+  /* Main and Meta share row 2. Only cap them so neither can force a 3rd row
+     or push its sibling past the viewport edge — do not stretch either one,
+     that would open an ugly gap between Main's own Publish/Preview buttons
+     (it has its own internal space-between) or between Meta's icons. */
+  [class*="ToolbarContainer"] [class*="ToolbarSectionMain"],
+  [class*="ToolbarContainer"] [class*="ToolbarSectionMeta"] {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* The site URL ("c-beltran.github.io/...") is noise for this user on a
+     phone, and it's what was ellipsis-truncating at 360px. Hide the link
+     itself, scoped to inside the toolbar — NOT ToolbarSectionMeta as a
+     whole, because that section also holds the account/avatar dropdown,
+     which is this user's only way to log out and must stay visible and
+     tappable. AppHeaderSiteLink is a distinct component name that does not
+     collide with anything else in the toolbar. */
+  [class*="ToolbarContainer"] [class*="AppHeaderSiteLink"] {
+    display: none !important;
   }
 
   /* Editor top bar: let its rows wrap instead of pushing content off-screen. */
